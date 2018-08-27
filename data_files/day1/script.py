@@ -25,7 +25,7 @@ def read(files):
 
 if __name__ == '__main__':
 	files=[]
-	indir = '/home/shayaan/sem_7/AI/data_files/day1'
+	indir = '/home/shayaan/sem_9/vaccine_efficacy/data_files/day1'
 	for filename in os.listdir(indir):
 		if filename.endswith(".txt"):
 			files.append(filename)
