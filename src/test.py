@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import numpy.random as rand
 import itertools
+import random
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
@@ -90,15 +91,16 @@ class Vaccine(object):
 		df = self.plot_data
 		fig = plt.figure()
 		ax = fig.add_subplot(111, projection='3d')
-		xs = df['1007_s_at']
-		ys = df['1320_at']
-		zs = df['200007_at']
+		xname,yname,zname = random.sample(df.columns,3)
+		xs = df[xname]
+		ys = df[yname]
+		zs = df[zname]
 		colors = ['red','blue']
 		c = list(df.label)
 		ax.scatter(xs, ys, zs, c=c, s=50, alpha=0.6, edgecolors='w',cmap=matplotlib.colors.ListedColormap(colors))
-		ax.set_xlabel('1007_s_at')
-		ax.set_ylabel('1320_at')
-		ax.set_zlabel('200007_at')
+		ax.set_xlabel(xname)
+		ax.set_ylabel(yname)
+		ax.set_zlabel(zname)
 		plt.show()
 
 	@staticmethod
@@ -108,9 +110,11 @@ class Vaccine(object):
 		else:
 			return 'Not Effective'
 
-	def correlationPlot(self):
-		cols = ['1007_s_at', '1053_at', '117_at', '121_at','categories']
+	def pairwisePlot(self):
+		# cols = ['1007_s_at', '1053_at', '117_at', '121_at','categories']
 		df = self.plot_data
+		cols = random.sample(df.columns,4)
+		cols.append('categories')
 		df['categories'] = df.apply(lambda col: self.stringLabel(col),axis=1)
 
 		pp = sns.pairplot(df[cols],hue='categories')
@@ -173,7 +177,7 @@ if __name__ == "__main__":
 	model = Vaccine(train_data_name,test_data_name)
 	model.data()
 	# model.plotData()
-	# model.correlationPlot()
+	model.pairwisePlot()
 
 	# model.trainLogisticRegression()
 	# model.testLogisticRegression()
@@ -183,18 +187,24 @@ if __name__ == "__main__":
 	# model.trainDecesionTree()
 	# model.testDecesionTree()
 
+	# plotConfusionMatrix(model.test_labels,model.predicted_labels)
+	
 	# model.trainRandomForrest()
 	# model.testRandomForrest()
+
+	# plotConfusionMatrix(model.test_labels,model.predicted_labels)
 
 	# model.trainSVM()
 	# model.testSVM()
 	
-	model.trainMLP()
-	model.testMLP()
+	# plotConfusionMatrix(model.test_labels,model.predicted_labels)
+
+	# model.trainMLP()
+	# model.testMLP()
 	
-	plotConfusionMatrix(model.test_labels,model.predicted_labels)
+	# plotConfusionMatrix(model.test_labels,model.predicted_labels)
 
 
-	model.plotROC()
+	# model.plotROC()
 
 	
