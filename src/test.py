@@ -112,16 +112,16 @@ class Vaccine(object):
 		df = self.plot_data
 		fig = plt.figure()
 		ax = fig.add_subplot(111, projection='3d')
-		xname,yname,zname = random.sample(df.columns,3)
-		xs = df[xname]
-		ys = df[yname]
-		zs = df[zname]
+		# xname,yname,zname = random.sample(df.columns,3)
+		xs = df['215129_at']
+		ys = df['209480_at']
+		zs = df['214974_x_at']
 		colors = ['red','blue']
 		c = list(df.label)
 		ax.scatter(xs, ys, zs, c=c, s=50, alpha=0.6, edgecolors='w',cmap=matplotlib.colors.ListedColormap(colors))
-		ax.set_xlabel(xname)
-		ax.set_ylabel(yname)
-		ax.set_zlabel(zname)
+		# ax.set_xlabel(xname)
+		# ax.set_ylabel(yname)
+		# ax.set_zlabel(zname)
 		plt.show()
 
 	@staticmethod
